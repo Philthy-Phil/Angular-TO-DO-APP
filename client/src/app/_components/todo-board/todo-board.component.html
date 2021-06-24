@@ -1,0 +1,19 @@
+<div class="todoBoard">
+
+  <div class="todoHeader">
+    <app-todo-header></app-todo-header>
+  </div>
+
+  <app-todo-form></app-todo-form>
+
+  <ul>
+    <app-todo
+        *ngFor="let todo of todoList" 
+        [todoName]="todo.todoName"></app-todo>
+  </ul>
+
+  <div class="todoFooter">
+    <app-todo-footer></app-todo-footer>
+  </div>
+
+</div>
