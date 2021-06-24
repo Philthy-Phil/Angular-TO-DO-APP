@@ -1,4 +1,4 @@
-# TODOAPP
+# TO-DO-APP
 
 My first TO-DO Application with Angular.
 
