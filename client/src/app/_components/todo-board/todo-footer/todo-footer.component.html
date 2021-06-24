@@ -1,4 +1,4 @@
 <div class="footer">
-  <span>You have (0) pending tasks</span>
-  <button>CLR</button>
+  <span>You have ({{ pendingTodos }}) pending tasks</span>
+  <button (click)="clearAllTodos()">CLR</button>
 </div>

@@ -1,4 +1,4 @@
 <div class="todoForm">
-  <input type="text" placeholder="Add your new todo" />
-  <button><fa-icon [icon]="faPlus"></fa-icon></button>
+  <input [(ngModel)]="newTodo" type="text" placeholder="Add your new todo" id="inputNewTodo"/>
+  <button (click)="addTodoToBoard()" id="btnAdd" [disabled]="!newTodo"><fa-icon [icon]="faPlus"></fa-icon></button>
 </div>

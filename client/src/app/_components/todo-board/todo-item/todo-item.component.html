@@ -1,4 +1,4 @@
 <li>
-  <p>Here is {{ todoName }} ToDo</p>
-  <button><fa-icon [icon]="faTrash"></fa-icon></button>
+  <p>{{ todoName }}</p>
+  <button (click)="deleteTodoToBoard()"><fa-icon [icon]="faTrash"></fa-icon></button>
 </li>
