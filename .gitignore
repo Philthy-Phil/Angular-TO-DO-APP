@@ -6,3 +6,5 @@ client/node_modules/
 db/package-lock.json
 
 .history/
+
+db/node_modules/

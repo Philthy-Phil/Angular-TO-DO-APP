@@ -1,0 +1,8 @@
+@use "../../../styles" as *;
+
+.container {
+  background: $clr-3;
+  padding: $spacing * 1.5;
+  border-radius: $spacing / 3;
+  box-shadow: 0px 0px 40px 15px rgba(0, 0, 0, 0.2);
+}
