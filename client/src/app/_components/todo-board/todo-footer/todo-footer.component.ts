@@ -1,5 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { faDumpster } from '@fortawesome/free-solid-svg-icons';
+import { TodoService } from 'src/app/todo.service';
 
 @Component({
   selector: "app-todo-footer",
@@ -9,14 +10,11 @@ import { faDumpster } from '@fortawesome/free-solid-svg-icons';
 export class TodoFooterComponent implements OnInit {
   faDumpster = faDumpster;
 
-  @Input() pendingTodos: number = 0;
-
-  constructor() {}
+  constructor(public todoData: TodoService) {}
 
   ngOnInit(): void {}
 
-  clearAllTodos() {
-    console.log("clicked clear all");
-    // TO-DO implement reset list
+  deleteAllTodos() {
+    this.todoData.deleteAll();
   }
 }

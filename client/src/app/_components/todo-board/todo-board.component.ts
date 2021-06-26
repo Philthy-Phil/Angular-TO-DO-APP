@@ -1,4 +1,6 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit } from '@angular/core';
+import { TodoService } from 'src/app/todo.service';
+import { TodoItem } from './todo-item/todo-item.model';
 
 @Component({
   selector: "app-todo-board",
@@ -6,34 +8,11 @@ import { Component, OnInit } from "@angular/core";
   styleUrls: ["./todo-board.component.scss"],
 })
 export class TodoBoardComponent implements OnInit {
-  todoID: number = 1;
-  todos: any[] = [
-    {
-      todoID: 1,
-      todoName: "Get Shit Done!",
-    },
-  ];
+  todoList: TodoItem[];
 
-  pendingTodos: number = this.todos.length;
-
-  newTodoFromForm: string = "";
-
-  updateTodosFromItem(event: any) {
-    this.todos = event;
-    this.pendingTodos = this.todos.length;
+  constructor(private todoData: TodoService) {
+    this.todoList = todoData.getTodos();
   }
-
-  addNewTodoFromForm(event: any) {
-    this.newTodoFromForm = event;
-
-    this.todos.push({
-      todoID: this.todoID + 1,
-      todoName: this.newTodoFromForm,
-    });
-    this.pendingTodos = this.todos.length;
-  }
-
-  constructor() {}
 
   ngOnInit(): void {}
 }

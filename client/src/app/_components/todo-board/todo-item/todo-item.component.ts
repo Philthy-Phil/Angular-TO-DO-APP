@@ -1,5 +1,6 @@
-import { Component, Input, OnInit, Output, EventEmitter } from "@angular/core";
-import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { Component, Input, OnInit } from '@angular/core';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { TodoService } from 'src/app/todo.service';
 
 @Component({
   selector: "app-todo",
@@ -10,24 +11,13 @@ export class TodoItemComponent implements OnInit {
   faTrash = faTrash;
 
   @Input() todoName: string = "";
-  @Input() todoID: number = 0;
-  @Input() todoIDXtoDelete: number = 0;
-  @Input() existingTodos: any[] = [];
+  @Input() todoId: number = 0;
 
-  updatedTodos: any[] = [];
-
-  constructor() {}
+  constructor(private todoData: TodoService) {}
 
   ngOnInit(): void {}
 
-  @Output() onDeleteNewTodos: EventEmitter<any> = new EventEmitter();
-
-  deleteTodoToBoard() {
-    this.existingTodos.splice(this.todoIDXtoDelete, 1);
-    this.updatedTodos = this.existingTodos;
-    // console.log(this.existingTodos);
-    // console.log(this.todoID + " " + this.todoName);
-    // console.log(this.todoIDXtoDelete + " " + this.todoName);
-    this.onDeleteNewTodos.emit(this.updatedTodos);
+  deleteTodo() {
+    this.todoData.deleteTodo(this.todoId);
   }
 }

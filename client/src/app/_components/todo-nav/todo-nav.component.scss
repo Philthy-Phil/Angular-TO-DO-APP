@@ -1,0 +1,41 @@
+// import main styles
+@use "../../../styles" as *;
+
+nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: $clr-2;
+    width: 100%;
+    height: $spacing * 4;
+    display: flex;
+    
+    ul {
+        margin: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        
+        li {
+            list-style-type: none;
+            padding: 0 $spacing;
+
+            a {
+                text-decoration: none;
+                color: $clr-3;
+                cursor: pointer;
+
+                &:hover {
+                    background-color: $clr-1;
+                    color: $clr-3;
+                }
+            }
+        }
+    }
+}
+
+.nav-link-active {
+    background-color: $clr-1;
+}
