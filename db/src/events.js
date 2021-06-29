@@ -7,11 +7,12 @@ function createRouter(db) {
     // insert new todo
     router.post('/todos', (req, res, next) => {
         db.query(
-            'INSERT INTO todo (id,name) VALUES (?)',
-            [req.body.name, req.body.id],
+            'INSERT INTO todo (id, name) VALUES (?, ?)',
+            [req.body.id, req.body.name],
             (error) => {
                 if (error) {
                     console.error(error);
+                    console.log("something wrong here");
                     res.status(500).json({ status: 'error' });
                 } else {
                     res.status(200).json({ status: 'ok' });
