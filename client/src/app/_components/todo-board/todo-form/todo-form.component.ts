@@ -18,8 +18,9 @@ export class TodoFormComponent implements OnInit {
 
   onClickAddTodo() {
     this.todoService.addTodo(this.todoName).subscribe(data => {
-      console.log(`successfully added todo -- ${data}`);
+      console.log(`successfully added new todo`);
     });
+    this.todoName = "";
   }
 
 }
