@@ -1,4 +1,4 @@
 <div class="footer">
-  <span>You have ({{ todoData.getTodosLength() }}) pending tasks</span>
-  <button (click)="deleteAllTodos()">CLR</button>
+  <span>You have ({{ todoService.getTodosLength() }}) pending tasks</span>
+  <button (click)="onClickDeleteAllTodo()">CLR</button>
 </div>

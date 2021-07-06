@@ -1,70 +1,57 @@
 import { Injectable } from "@angular/core";
-import { TodoItem } from "./_components/todo-board/todo-item/todo-item.model";
-import { environment } from "../environments/environment";
+import { ITodoItem } from "./_components/todo-board/todo-item/todo-item.interface";
 import { HttpClient } from "@angular/common/http";
+import { Observable } from "rxjs/internal/Observable";
+import { environment } from "src/environments/environment.prod";
 
 @Injectable({
   providedIn: "root",
 })
 export class TodoService {
-  private todos: TodoItem[];
+  readonly ROOT_URL: string = environment.ROOT_URL;
+
+  todoList: ITodoItem[] = [];
 
   constructor(private http: HttpClient) {
-    this.todos = new Array();
-  }
-
-  private async request(method: string, url: string, data?: any) {
-    const result = this.http.request(method, url, {
-      body: data,
-      responseType: "json",
-      observe: "body",
-    });
-    return new Promise((resolve, reject) => {
-      result.subscribe(resolve, reject);
+    this.http.get<ITodoItem[]>(this.ROOT_URL).subscribe((response) => {
+      this.todoList = response;
     });
   }
 
-  getNewId() {
-    if (this.todos.length == 0) {
-      return 1;
-    } else {
-      return this.todos[this.todos.length - 1].todoId + 1;
-    }
-  }
-
-  addNewItem(name: string) {
-    let newId = this.getNewId();
-    this.todos.push(new TodoItem(name, newId));
-    this.request("POST", `${environment.serverUrl}/todos`, { newId, name });
-  }
-
-  deleteTodo(todoId: number) {
-    const idx: number = this.todos.findIndex((todo) => todo.todoId == todoId);
-    this.todos.splice(idx, 1);
-    this.request("DELETE", `${environment.serverUrl}/todos/${todoId}`);
-  }
-
-  deleteAll() {
-    this.todos.splice(0, this.todos.length);
-  }
-
-  getTodos(): TodoItem[] {
-    this.loadTodoData();
-    return this.todos;
+  getAllTodos(): Observable<ITodoItem[]> {
+    return this.http.get<ITodoItem[]>(this.ROOT_URL);
   }
 
   getTodosLength() {
-    return this.todos.length;
+    return this.todoList.length;
   }
 
-  loadTodoData() {
-    this.deleteAll();
-    this.request("GET", `${environment.serverUrl}/todos`).then(
-      (response: any) => {
-        let tempArray = response.map((data: any) => {
-          this.todos.push(new TodoItem(data.name, data.id));
-        });
-      }
-    );
+  addTodo(todoName: string) {
+    let id = this.getNewId();
+    return this.http.post(this.ROOT_URL, { id: id, todoName: todoName });
+  }
+
+  deleteTodo(id: number) {
+    const deleteEndpoint = this.ROOT_URL + id;
+    return this.http.delete(deleteEndpoint);
+  }
+
+  getNewId() {
+    if (this.todoList.length === 0) {
+      return 1;
+    } else {
+      return this.todoList[this.todoList.length - 1].id + 1;
+    }
+  }
+
+  deleteAllTodos() {
+    let idx = this.getTodosLength();
+    while (idx > 0) {
+      const deleteEndpoint = this.ROOT_URL + idx;
+      this.http.delete(deleteEndpoint).subscribe((data) => {
+        console.log("entry deleted");
+      });
+      idx--;
+    }
   }
 }

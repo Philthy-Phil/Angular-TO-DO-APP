@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  serverUrl: "http://localhost:8080"
+  ROOT_URL: "http://localhost:3000/todos/"
 };
 
 /*

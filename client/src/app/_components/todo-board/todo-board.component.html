@@ -8,9 +8,10 @@
 
   <ul>
     <app-todo
-        *ngFor="let todo of todoList" 
-        [todoName]="todo.todoName"
-        [todoId]="todo.todoId">
+      *ngFor="let todo of todoList"
+      [todoName]="todo.todoName"
+      [id]="todo.id"
+      >
     </app-todo>
   </ul>
 

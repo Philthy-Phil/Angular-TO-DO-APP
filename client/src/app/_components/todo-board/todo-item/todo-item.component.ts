@@ -11,13 +11,15 @@ export class TodoItemComponent implements OnInit {
   faTrash = faTrash;
 
   @Input() todoName: string = "";
-  @Input() todoId: number = 0;
+  @Input() id: number = 0;
 
-  constructor(private todoData: TodoService) {}
+  constructor(private todoService: TodoService) {}
 
   ngOnInit(): void {}
 
-  deleteTodo() {
-    this.todoData.deleteTodo(this.todoId);
+  onClickDeleteTodo(id: number) {
+    this.todoService.deleteTodo(id).subscribe(data => {
+      console.log(`successfully deleted todo ${id} -- ${this.todoName}`);
+    });
   }
 }

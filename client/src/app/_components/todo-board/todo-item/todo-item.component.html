@@ -1,4 +1,4 @@
 <li>
-  <p>{{ todoId }} {{ todoName }}</p>
-  <button (click)="deleteTodo()"><fa-icon [icon]="faTrash"></fa-icon></button>
+  <p>{{ id }} {{ todoName }}</p>
+  <button (click)="onClickDeleteTodo(id)"><fa-icon [icon]="faTrash"></fa-icon></button>
 </li>
