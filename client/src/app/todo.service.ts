@@ -45,7 +45,7 @@ export class TodoService {
     while (idx > 0) {
       const deleteEndpoint = this.ROOT_URL + idx;
       this.http.delete(deleteEndpoint).subscribe((data) => {
-        console.log("entry deleted");
+        console.log("wiped out list");
       });
       idx--;
     }
