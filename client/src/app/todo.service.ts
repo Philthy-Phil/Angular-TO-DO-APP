@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { ITodoItem } from "./_components/todo-board/todo-item/todo-item.interface";
+import { TodoItem } from "./_components/todo-board/todo-item/todo-item.model";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs/internal/Observable";
 import { environment } from "src/environments/environment.prod";
@@ -10,40 +10,36 @@ import { environment } from "src/environments/environment.prod";
 export class TodoService {
   readonly ROOT_URL: string = environment.ROOT_URL;
 
-  todoList: ITodoItem[] = [];
+  todoList: TodoItem[] = [];
 
   constructor(private http: HttpClient) {
-    this.http.get<ITodoItem[]>(this.ROOT_URL).subscribe((response) => {
+    this.http.get<TodoItem[]>(this.ROOT_URL).subscribe((response) => {
       this.todoList = response;
     });
   }
 
-  getAllTodos(): Observable<ITodoItem[]> {
-    return this.http.get<ITodoItem[]>(this.ROOT_URL);
+  
+  
+  // CRUD
+  
+  // get todos
+  getAllTodos(): Observable<TodoItem[]> {
+    return this.http.get<TodoItem[]>(this.ROOT_URL);
   }
 
-  getTodosLength() {
-    return this.todoList.length;
-  }
-
+  // add todo
   addTodo(todoName: string) {
     let id = this.getNewId();
     return this.http.post(this.ROOT_URL, { id: id, todoName: todoName });
   }
-
+  
+  // delete todo
   deleteTodo(id: number) {
     const deleteEndpoint = this.ROOT_URL + id;
     return this.http.delete(deleteEndpoint);
   }
-
-  getNewId() {
-    if (this.todoList.length === 0) {
-      return 1;
-    } else {
-      return this.todoList[this.todoList.length - 1].id + 1;
-    }
-  }
-
+  
+  // delete all todos
   deleteAllTodos() {
     let idx = this.getTodosLength();
     while (idx > 0) {
@@ -54,4 +50,19 @@ export class TodoService {
       idx--;
     }
   }
+  
+  // little helpers here
+  getTodosLength() {
+    return this.todoList.length;
+  }
+  
+  getNewId() {
+    if (this.todoList.length === 0) {
+      return 1;
+    } else {
+      return this.todoList[this.todoList.length - 1].id + 1;
+    }
+  }
+
+
 }
