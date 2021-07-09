@@ -10,16 +10,15 @@ import { TodoService } from 'src/app/todo.service';
 export class TodoItemComponent implements OnInit {
   faTrash = faTrash;
 
-  @Input() todoName: string = "";
   @Input() id: number = 0;
+  @Input() todoName: string = "";
 
   constructor(private todoService: TodoService) {}
 
   ngOnInit(): void {}
 
-  onClickDeleteTodo(id: number) {
-    this.todoService.deleteTodo(id).subscribe(data => {
-      console.log(`successfully deleted todo ${id} -- ${this.todoName}`);
-    });
+  onClickDeleteTodo() {
+    this.todoService.deleteTodo(this.id);
   }
+
 }

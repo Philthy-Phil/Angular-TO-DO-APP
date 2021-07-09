@@ -14,13 +14,15 @@ export class TodoFormComponent implements OnInit {
 
   constructor(private todoService: TodoService) {}
 
-  ngOnInit(): void {}
-
-  onClickAddTodo() {
-    this.todoService.addTodo(this.todoName).subscribe(data => {
-      console.log(`successfully added new todo`);
-    });
-    this.todoName = "";
+  onClickAddNewTodo() {
+    let invalid = "missing input";
+    if(this.todoName === "") {
+      this.todoName = invalid;
+    } else if (this.todoName !== invalid) {
+      this.todoService.addNewTodo(this.todoName);
+      this.todoName = "";
+    }
   }
 
+  ngOnInit(): void {}
 }

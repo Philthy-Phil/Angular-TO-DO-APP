@@ -8,15 +8,13 @@ import { TodoItem } from "./todo-item/todo-item.model";
   styleUrls: ["./todo-board.component.scss"],
 })
 export class TodoBoardComponent implements OnInit {
+  
   todoList: TodoItem[] = [];
 
   constructor(private todoService: TodoService) {
-    this.todoService.getAllTodos().subscribe((data) => {
-      this.todoList = data;
-      console.log(this.todoList);
-    });
+    this.todoList = this.todoService.getTodoList();
+    console.log(this.todoList)
   }
-  
-  ngOnInit(): void {}
 
+  ngOnInit(): void {}
 }

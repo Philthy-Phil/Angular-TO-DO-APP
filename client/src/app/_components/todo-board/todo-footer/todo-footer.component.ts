@@ -14,7 +14,8 @@ export class TodoFooterComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  onClickDeleteAllTodo() {
-   this.todoService.deleteAllTodos();
+  onCLickDeleteAllTodos(): void {
+    this.todoService.deleteAllTodos();
+    console.log("successfully wiped out todos");
   }
 }
